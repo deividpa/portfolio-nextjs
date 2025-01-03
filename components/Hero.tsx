@@ -1,5 +1,8 @@
 import React from 'react'
 import { Spotlight } from './ui/Spotlight'
+import { TextGenerateEffect } from './ui/TextGenerateEffect'
+import MagicButton from './ui/MagicButton'
+import { FaLocationArrow } from 'react-icons/fa'
 
 const Hero = () => {
   return (
@@ -19,6 +22,23 @@ const Hero = () => {
             <h2 className="uppercase tracking-widest text-xs text-center text-blue-200 max-w-80">
               Dynamic web magic with Next.js
             </h2>
+
+            <TextGenerateEffect
+              className="md:text-5xl lg:text-6xl text-center text-[40px]"
+              words="Transforming Concepts into Seamless User Experiences"
+            />
+
+            <p className='text-center tracking-wider mb-4 text-sm md:text-lg lg:text-xl'>
+              Hi, I&apos;m David Pérez a Full Stack Developer based in Colombia
+            </p>
+
+            <a href="#about">
+              <MagicButton
+                icon={<FaLocationArrow />}
+                position="right"
+                title="Show my Work"
+              />
+            </a>
           </div>
         </div>
     </div>
