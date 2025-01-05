@@ -1,5 +1,10 @@
+'use client';
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./BackgroundGradientAnimation";
+import { GrideGlobe } from "./GrideGlobe";
+import MagicButton from "./MagicButton";
+import { IoCopyOutline } from "react-icons/io5";
 
 export const BentoGrid = ({
   className,
@@ -41,11 +46,19 @@ export const BentoGridItem = ({
   titleClassName?: string;
   spareImg?: string;
 }) => {
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('perezdavid2236@gmail.com');
+    setCopied(true);
+  }
+
   return (
     <div
       key={id}
       className={cn(
-        "row-span-1 relative rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4 ",
+        "row-span-1 relative overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none border border-white/[0.1] justify-between flex flex-col space-y-4",
         className
       )}
       style={{
@@ -53,7 +66,7 @@ export const BentoGridItem = ({
         backgroundColor: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,91,0.8519782913165266) 32%, rgba(73,73,186,1) 74%, rgba(107,107,226,0.4374124649859944) 90%)'
       }}
     >
-      <div className={`${id === 6 && 'flex border-1 border-red-700 justify-center h-full'}`}>
+      <div className={`${id === 6 && 'flex justify-center'} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
             <img
@@ -73,20 +86,56 @@ export const BentoGridItem = ({
           )}
         </div>
 
+        <div className={cn(
+          titleClassName, 'group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-4 lg:p-10'
+        )}>
+          <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-20">
+            {description}
+          </div>
+          <div className="font-sans font-bold text-lg lg:text-3xl max-w-96 z-20">
+            {title}
+          </div>
+
+          {id === 2 && <GrideGlobe />}
+
+          {id === 3 && (	
+            <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
+              <div className="flex flex-col gap-3 lg:gap-8">
+                {['Javascript', 'React'].map((item) => (
+                  <span key={item} className='py-2 lg:py-4 px-3 text-xs lg:text-xs opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]'>
+                    {item}
+                  </span>
+                ))}
+                <span className="py-4 px-3 rounder-lg text-center bg-[#10132e]" />
+              </div>
+              <div className="flex flex-col gap-3 lg:gap-8">
+                <span className="py-4 px-3 rounder-lg text-center bg-[#10132e]" />
+                {['NodeJs', 'MongoDB'].map((item) => (
+                  <span key={item} className='py-2 lg:py-4 px-3 text-xs opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]'>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
         {id === 6 && (
           <BackgroundGradientAnimation>
             <div className='absolute z-50 flex items-center justify-center text-white font-bold' />
           </BackgroundGradientAnimation>
         )}
-        <div className={cn(
-          titleClassName, 'group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-4 lg:p-10'
-        )}>
-          <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
-            {description}
-          </div>
-          <div className="font-sans font-bold text-lg lg:text-3xl max-w-96 z-10">
-            {title}
-          </div>
+
+          {id === 6 && (
+            <div className="mt-5 relative">
+              <MagicButton 
+                title={copied ? 'Email Copied!' : 'Copy my Email'}
+                icon={<IoCopyOutline />}
+                position="left"
+                otherClasses="!bg-[#161a31]"
+                handleClick={handleCopy}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
